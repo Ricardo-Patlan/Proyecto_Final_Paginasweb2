@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommonModule } from './common/common.module';
 import { AuthModule } from './auth/auth.module';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [
@@ -24,8 +25,9 @@ import { AuthModule } from './auth/auth.module';
     }),
     CommonModule,
     AuthModule,
-    // Los modulos de dominio (Categories, Books, Loans, Seed) se van
-    // agregando aqui a medida que se crean.
+    CategoriesModule,
+    // Los modulos de dominio (Books, Loans, Seed) se van agregando aqui a
+    // medida que se crean.
   ],
 })
 export class AppModule {}
