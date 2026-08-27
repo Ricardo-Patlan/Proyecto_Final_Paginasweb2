@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CommonModule } from './common/common.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { CommonModule } from './common/common.module';
       synchronize: true,
     }),
     CommonModule,
-    // Los modulos de dominio (Auth, Categories, Books, Loans, Seed) se van
+    AuthModule,
+    // Los modulos de dominio (Categories, Books, Loans, Seed) se van
     // agregando aqui a medida que se crean.
   ],
 })
