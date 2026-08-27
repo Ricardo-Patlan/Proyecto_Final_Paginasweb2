@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { CategoriesModule } from './categories/categories.module';
 import { BooksModule } from './books/books.module';
 import { LoansModule } from './loans/loans.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { LoansModule } from './loans/loans.module';
     CategoriesModule,
     BooksModule,
     LoansModule,
-    // El modulo de Seed se agrega aqui cuando se crea.
+    SeedModule,
   ],
 })
 export class AppModule {}
