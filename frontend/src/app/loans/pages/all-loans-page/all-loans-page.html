@@ -1,0 +1,64 @@
+<div class="max-w-4xl mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold mb-4">Todos los préstamos</h1>
+
+  @if (loading()) {
+    <div class="flex justify-center py-10">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+  } @else if (error(); as errorMsg) {
+    <p class="text-error text-center py-10">{{ errorMsg }}</p>
+  } @else {
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Usuario</th>
+            <th>Estado</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (loan of loans(); track loan.id) {
+            <tr>
+              <td>{{ loan.book.title }}</td>
+              <td>{{ loan.user.fullName }}</td>
+              <td>
+                @switch (loan.status) {
+                  @case ('active') {
+                    <span class="badge badge-warning">Activo</span>
+                  }
+                  @case ('returned') {
+                    <span class="badge badge-success">Devuelto</span>
+                  }
+                  @default {
+                    <span class="badge">{{ loan.status }}</span>
+                  }
+                }
+              </td>
+              <td>
+                @if (loan.status === 'active') {
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline"
+                    [disabled]="returningId() === loan.id"
+                    (click)="markAsReturned(loan)"
+                  >
+                    @if (returningId() === loan.id) {
+                      <span class="loading loading-spinner loading-xs"></span>
+                    }
+                    Marcar como devuelto
+                  </button>
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="4" class="text-center opacity-70 py-6">No hay préstamos registrados.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

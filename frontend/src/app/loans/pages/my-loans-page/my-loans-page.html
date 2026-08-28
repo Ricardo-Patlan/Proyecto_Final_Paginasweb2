@@ -1,0 +1,53 @@
+<div class="max-w-3xl mx-auto px-4 py-6">
+  <h1 class="text-2xl font-bold mb-4">Mis préstamos</h1>
+
+  @if (loading()) {
+    <div class="flex justify-center py-10">
+      <span class="loading loading-spinner loading-lg"></span>
+    </div>
+  } @else if (error(); as errorMsg) {
+    <p class="text-error text-center py-10">{{ errorMsg }}</p>
+  } @else {
+    <div class="overflow-x-auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Libro</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (loan of loans(); track loan.id) {
+            <tr>
+              <td>{{ loan.book.title }}</td>
+              <td>{{ loan.loanDate | date: 'dd/MM/yyyy' }}</td>
+              <td>
+                @switch (loan.status) {
+                  @case ('active') {
+                    <span class="badge badge-warning">Activo</span>
+                  }
+                  @case ('returned') {
+                    <span class="badge badge-success">Devuelto</span>
+                  }
+                  @default {
+                    <span class="badge">{{ loan.status }}</span>
+                  }
+                }
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3" class="text-center opacity-70 py-6">Todavía no has pedido ningún libro prestado.</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="flex justify-center gap-2 mt-4">
+      <button type="button" class="btn btn-sm" [disabled]="offset() === 0" (click)="prevPage()">Anterior</button>
+      <button type="button" class="btn btn-sm" [disabled]="loans().length < pageSize" (click)="nextPage()">Siguiente</button>
+    </div>
+  }
+</div>
