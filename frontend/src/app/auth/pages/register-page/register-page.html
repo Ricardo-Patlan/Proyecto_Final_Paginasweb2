@@ -1,0 +1,67 @@
+<div class="flex justify-center items-center min-h-[80vh] px-4">
+  <div class="card w-full max-w-sm bg-base-100 shadow-sm">
+    <div class="card-body">
+      <h1 class="text-2xl font-bold text-center mb-2">📚 Biblioteca Digital</h1>
+      <h2 class="text-lg text-center mb-4 opacity-70">Crear cuenta</h2>
+
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-3">
+        <label class="floating-label">
+          <span>Nombre completo</span>
+          <input
+            type="text"
+            formControlName="fullName"
+            placeholder="Tu nombre"
+            class="input input-bordered w-full"
+          />
+        </label>
+        @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
+          <p class="text-error text-sm -mt-2">Ingresa tu nombre</p>
+        }
+
+        <label class="floating-label">
+          <span>Correo</span>
+          <input
+            type="email"
+            formControlName="email"
+            placeholder="correo@ejemplo.com"
+            class="input input-bordered w-full"
+          />
+        </label>
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+          <p class="text-error text-sm -mt-2">Ingresa un correo válido</p>
+        }
+
+        <label class="floating-label">
+          <span>Contraseña</span>
+          <input
+            type="password"
+            formControlName="password"
+            placeholder="Contraseña"
+            class="input input-bordered w-full"
+          />
+        </label>
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+          <p class="text-error text-sm -mt-2">
+            Debe tener mayúscula, minúscula, un número y al menos 6 caracteres
+          </p>
+        }
+
+        @if (errorMessage(); as error) {
+          <p class="text-error text-sm">{{ error }}</p>
+        }
+
+        <button type="submit" class="btn btn-primary mt-2" [disabled]="isPosting()">
+          @if (isPosting()) {
+            <span class="loading loading-spinner loading-sm"></span>
+          }
+          Crear cuenta
+        </button>
+      </form>
+
+      <p class="text-center text-sm mt-4">
+        ¿Ya tienes cuenta?
+        <a routerLink="/auth/login" class="link link-primary">Inicia sesión</a>
+      </p>
+    </div>
+  </div>
+</div>

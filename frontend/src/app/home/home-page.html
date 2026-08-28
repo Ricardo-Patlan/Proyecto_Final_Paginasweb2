@@ -1,0 +1,9 @@
+<div class="flex flex-col items-center justify-center min-h-[70vh] text-center px-4">
+  <h1 class="text-3xl font-bold mb-2">📚 Bienvenido a la Biblioteca Digital</h1>
+
+  @if (authService.authStatus() === 'authenticated') {
+    <p class="opacity-70">Sesión iniciada como {{ authService.user()?.email }}</p>
+  } @else {
+    <p class="opacity-70">Inicia sesión para pedir libros prestados.</p>
+  }
+</div>
